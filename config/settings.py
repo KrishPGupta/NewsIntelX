@@ -2,24 +2,33 @@
 config/settings.py
 
 Centralized configuration loader for the News Intelligence System.
-Loads secrets (like API keys) from a local .env file so they never
-get hardcoded into source code or committed to version control.
+Works both locally (reads from a .env file) and when deployed on
+Streamlit Community Cloud (reads from st.secrets), so the same
+codebase runs in both environments without changes.
 """
 
 import os
 from dotenv import load_dotenv
 
-# Load variables from the .env file in the project root into the environment
+# Load variables from .env for local development
 load_dotenv()
 
-# Gemini API key, required for summarization and Q&A modules
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+# If not found locally, try Streamlit's secrets manager (used when deployed)
+if not GEMINI_API_KEY:
+    try:
+        import streamlit as st
+        GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY")
+    except Exception:
+        pass
 
 if not GEMINI_API_KEY:
     raise EnvironmentError(
         "GEMINI_API_KEY is missing. "
-        "Create a .env file in the project root with:\n"
-        "GEMINI_API_KEY=your_key_here"
+        "For local development, create a .env file with:\n"
+        "GEMINI_API_KEY=your_key_here\n"
+        "For Streamlit Cloud, add it under Settings > Secrets."
     )
 
 # Central place for other tunable constants (used later by other modules)
