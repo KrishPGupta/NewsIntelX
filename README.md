@@ -25,7 +25,10 @@ An end-to-end NLP pipeline that summarizes news articles, detects sentiment, ext
 | Keyword Extraction | KeyBERT |
 
 ## Project Structure
+
+```
 NewsIntelX/ ├── app.py # Streamlit entry point (UI layer only) ├── src/ │ ├── preprocessing.py # Text cleaning, tokenization │ ├── summarizer.py # Gemini-based summarization │ ├── sentiment.py # VADER sentiment analysis │ ├── entity_extraction.py # spaCy NER │ ├── keyword_extraction.py # KeyBERT keyword extraction │ ├── question_answering.py # Gemini-based grounded Q&A │ └── utils.py # Shared retry logic for API calls ├── config/ │ └── settings.py # Loads API key & constants from .env ├── data/ │ └── sample_articles/ # A few example articles for quick testing ├── requirements.txt └── README.md
+```
 
 ## Setup & Installation
 
@@ -50,8 +53,9 @@ python3 -c "import nltk; nltk.download('punkt'); nltk.download('punkt_tab'); nlt
 
 ### 4. Configure your API key
 Create a `.env` file in the project root:
+```
 GEMINI_API_KEY=your_key_here
-
+```
 
 ### 5. Run the app
 ```bash
