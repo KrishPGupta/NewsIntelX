@@ -97,4 +97,4 @@ Sample articles for testing are drawn from the [BBC News Summary dataset](https:
 
 ## Author
 
-Built by Krish Gupta as a college NLP/LLM project.
+Built by Krish Gupta.
